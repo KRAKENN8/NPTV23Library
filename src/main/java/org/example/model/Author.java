@@ -1,4 +1,5 @@
-package org.example;
+package org.example.model;
+
 
 import java.util.UUID;
 
@@ -7,23 +8,19 @@ public class Author {
     private String authorName;
     private String authorSurname;
 
+    // Default constructor
     public Author() {
         this.id = UUID.randomUUID();
     }
+
+    // Constructor with parameters
     public Author(String authorName, String authorSurname) {
         this.id = UUID.randomUUID();
         this.authorName = authorName;
         this.authorSurname = authorSurname;
     }
 
-    public UUID getId() {
-        return id;
-    }
-
-    public void setId(UUID id) {
-        this.id = id;
-    }
-
+    // Getters and Setters
     public String getAuthorName() {
         return authorName;
     }
