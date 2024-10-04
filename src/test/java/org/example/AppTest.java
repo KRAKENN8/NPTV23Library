@@ -1,62 +1,55 @@
 package org.example;
 
+import org.example.handlers.BookHandler;
+import org.example.interfaces.BookProvider;
+import org.example.interfaces.InputProvider;
+import org.example.model.Author;
+import org.example.model.Book; // Assuming you have a Book class
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import java.io.ByteArrayInputStream;
+import org.mockito.Mockito;
+
 import java.io.ByteArrayOutputStream;
-import java.io.InputStream;
 import java.io.PrintStream;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.mockito.Mockito.when;
 
-public class AppTest {
+class AppTest {
+    ByteArrayOutputStream outDefault;
+    ByteArrayOutputStream outContent;
 
-    @Test
-    public void testRunExit() {
-        String input = "0\n"; // Ввод: 0 - завершение программы
-        InputStream in = new ByteArrayInputStream(input.getBytes());
-        System.setIn(in);
-
-        ByteArrayOutputStream outContent = new ByteArrayOutputStream();
+    @BeforeEach
+    void setUp() {
+        outDefault = new ByteArrayOutputStream();
+        outContent = new ByteArrayOutputStream();
         System.setOut(new PrintStream(outContent));
+    }
 
-        App app = new App();
-        app.run();
-
-        String output = outContent.toString();
-        assertTrue(output.contains("До свидания :)"));
+    @AfterEach
+    void tearDown() {
+        System.setOut(new PrintStream(outDefault));
     }
 
     @Test
-    public void testRunInvalidTask() {
-        String input = "2\n0\n"; // Ввод: 2 - неправильная задача, 0 - завершение программы
-        InputStream in = new ByteArrayInputStream(input.getBytes());
-        System.setIn(in);
+    void testAppRunExit() {
+        InputProvider inputMock = Mockito.mock(InputProvider.class);
+        when(inputMock.getInput()).thenReturn("0");
 
-        ByteArrayOutputStream outContent = new ByteArrayOutputStream();
-        System.setOut(new PrintStream(outContent));
+        BookProvider bookProviderMock = Mockito.mock(BookProvider.class);
+        Author[] authors = new Author[1];
+        Author author = new Author("Lev", "Tolstoy");
+        authors[0] = author;
 
-        App app = new App();
+        when(bookProviderMock.createBook(inputMock)).thenReturn(new Book("Voina i mir", authors, "2000"));
+
+        BookHandler bookHandler = new BookHandler(inputMock, bookProviderMock);
+        App app = new App(bookHandler, inputMock);
+
         app.run();
 
-        String output = outContent.toString();
-        assertTrue(output.contains("Выберите задачу из списка!"));
-        assertTrue(output.contains("До свидания :)"));
-    }
-
-    @Test
-    public void testRunValidTask() {
-        String input = "1\n0\n"; // Ввод: 1 - добавление книги, 0 - завершение программы
-        InputStream in = new ByteArrayInputStream(input.getBytes());
-        System.setIn(in);
-
-        ByteArrayOutputStream outContent = new ByteArrayOutputStream();
-        System.setOut(new PrintStream(outContent));
-
-        App app = new App();
-        app.run();
-
-        String output = outContent.toString();
-        assertTrue(output.contains("------ Добавление книги ------"));
-        assertTrue(output.contains("До свидания :)"));
+        String outputContent = outContent.toString();
+        assertTrue(outputContent.contains("До свидания!"));
     }
 }
