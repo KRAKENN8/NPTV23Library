@@ -1,19 +1,12 @@
 package ee.ivkhkdev.model;
 
-<<<<<<< HEAD
-=======
 import java.io.Serializable;
->>>>>>> New update
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
 
-<<<<<<< HEAD
-public class Book {
-=======
 public class Book implements Serializable {
->>>>>>> New update
     private UUID id;
     private String title;
     private List<Author> authors = new ArrayList<>();

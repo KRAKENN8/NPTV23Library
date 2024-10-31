@@ -1,20 +1,12 @@
 package ee.ivkhkdev.services;
 
-<<<<<<< HEAD
-import ee.ivkhkdev.apphelpers.AppHelper;
-=======
 import ee.ivkhkdev.interfaces.AppHelper;
 import ee.ivkhkdev.interfaces.Service;
->>>>>>> New update
 import ee.ivkhkdev.model.Book;
 
 import java.util.List;
 
-<<<<<<< HEAD
-public class BookService implements Service<Book>{
-=======
 public class BookService implements Service<Book> {
->>>>>>> New update
 
     private final List<Book> books;
     private final AppHelper<Book> appHelperBook;
@@ -31,11 +23,7 @@ public class BookService implements Service<Book> {
         try {
             Book book = appHelperBook.create();
             if(book == null) {return false;}
-<<<<<<< HEAD
-            books.add(book);
-=======
             appHelperBook.getRepository().save(book);
->>>>>>> New update
             return true;
         }catch(Exception e) {
             System.out.println("Error: " + e.getMessage());
@@ -60,11 +48,7 @@ public class BookService implements Service<Book> {
 
     @Override
     public List<Book> list() {
-<<<<<<< HEAD
-        return books;
-=======
         return appHelperBook.getRepository().load();
->>>>>>> New update
 
     }
 }

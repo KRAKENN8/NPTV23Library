@@ -1,19 +1,5 @@
 package ee.ivkhkdev.apphelpers;
 
-<<<<<<< HEAD
-import ee.ivkhkdev.App;
-import ee.ivkhkdev.input.Input;
-import ee.ivkhkdev.model.Author;
-
-import java.util.List;
-
-
-public class AppHelperAuthor implements AppHelper<Author> {
-    private final Input input;
-
-    public AppHelperAuthor(Input input) {
-        this.input = input;
-=======
 import ee.ivkhkdev.interfaces.FileRepository;
 import ee.ivkhkdev.interfaces.AppHelper;
 import ee.ivkhkdev.interfaces.Input;
@@ -35,7 +21,6 @@ public class AppHelperAuthor implements AppHelper<Author>, Input {
 
     public FileRepository<Author> getRepository() {
         return authorRepository;
->>>>>>> New update
     }
 
     @Override
@@ -43,17 +28,6 @@ public class AppHelperAuthor implements AppHelper<Author>, Input {
         try {
             Author author = new Author();
             System.out.print("Имя автора: ");
-<<<<<<< HEAD
-            author.setAuthorName(input.getString());
-            System.out.println("Фамилия автора: ");
-            author.setAuthorSurname(input.getString());
-            return author;
-        }catch (Exception e) {
-            System.out.println("Error: " + e.getMessage());
-            return null;
-        }
-
-=======
             author.setAuthorName(getString());
             System.out.print("Фамилия автора: ");
             author.setAuthorSurname(getString());
@@ -62,19 +36,11 @@ public class AppHelperAuthor implements AppHelper<Author>, Input {
             System.out.println("Error: " + e.getMessage());
             return null;
         }
->>>>>>> New update
     }
 
     @Override
     public void printList(List<Author> authors) {
         System.out.println("---------- Список авторов --------");
-<<<<<<< HEAD
-        for(int i=0;i<authors.size();i++) {
-            Author author = authors.get(i);
-            System.out.printf("%d. %s %s%n", i+1,author.getAuthorName(),author.getAuthorSurname());
-        }
-    }
-=======
         for (int i = 0; i < authors.size(); i++) {
             Author author = authors.get(i);
             System.out.printf("%d. %s %s%n", i + 1, author.getAuthorName(), author.getAuthorSurname());
@@ -85,5 +51,4 @@ public class AppHelperAuthor implements AppHelper<Author>, Input {
     public String getString() {
         return scanner.nextLine();
     }
->>>>>>> New update
 }
